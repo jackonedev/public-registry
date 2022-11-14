@@ -33,7 +33,7 @@ Person.objects.all()
 
 # Repetimos el proceso con Address
 Address.objects.all()
-a1 = Address(street='Av. Sexta', number=3995, city='Paraíso')
+a1 = Address(street='Av. Sexta', number=3995, city='Paraíso', person=p1)
 a1.save()
 a1.id
 Address.objects.all()
