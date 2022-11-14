@@ -2,10 +2,10 @@ from django.db import models
 
 
 class Person(models.Model):
-    id = models.IntegerField(max_length=10, primary_key=True)
+    id = models.IntegerField(primary_key=True)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    age = models.IntegerField(max_length=3)
+    age = models.IntegerField()
     #picture = models.ImageField(upload_to='media/person', blank=True)
 
     def __str__(self) -> str:
@@ -15,7 +15,7 @@ class Person(models.Model):
 
 class Address(models.Model):
     street = models.CharField(max_length=30)
-    number = models.IntegerField(max_length=10)
+    number = models.IntegerField()
     city = models.CharField(max_length=30)
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
 
