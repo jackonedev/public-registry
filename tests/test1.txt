@@ -1,0 +1,58 @@
+Testeamos crear una persona con estas características:
+
+PERSONA
+DNI: 33.444.555
+Nombre: Juan
+Apellido: Gris
+Edad: 30
+
+DIRECCION
+Calle: Av. Sexta
+Numero_de_calle: 3995
+Ciudad: Paraiso
+
+
+
+
+El codigo que tengo que testear es:
+
+from application.models import Person, Address
+
+# Testeamos que el objeto Person no tiene registros aún
+Person.objects.all()
+
+# Creamos un registro
+p1 = Person(id=33.444.555, first_name='Juan', last_name='Gris', age=30)
+p1.save()
+
+# Testeamos el id sea el DNI
+p1.id
+
+# Testeamos nuevamente el objeto Person
+Person.objects.all()
+
+# Repetimos el proceso con Address
+Address.objects.all()
+a1 = Address(street='Av. Sexta', number=3995, city='Paraíso')
+a1.save()
+a1.id
+Address.objects.all()
+
+
+
+# Resultado: Problema de formato con integrer
+
+>>> # TEST MANUAL 1
+>>>
+>>> from application.models import Person, Address
+>>>
+>>> # Testeamos que el objeto Person no tenga registros aún
+>>> Person.objects.all()
+<QuerySet []>
+>>>
+>>> # Creamos un registro
+>>> p1 = Person(id=33.444.555, first_name='Juan', last_name='Gris', age=30)
+  File "<console>", line 1
+    p1 = Person(id=33.444.555, first_name='Juan', last_name='Gris', age=30)
+                   ^^^^^^^^^^
+SyntaxError: invalid syntax. Perhaps you forgot a comma?
