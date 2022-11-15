@@ -1,4 +1,5 @@
 import os, random, pprint, json
+from itertools import count
 
 
 def get_random_person():
@@ -43,4 +44,10 @@ def get_random_id():
 
 
 if __name__ == '__main__':
-    print(get_random_person())
+    x = count()
+    next(x)
+
+    for i in range(10):
+        print (">>>> Persona Random Nº {}".format(next(x)))
+        print(get_random_person())
+        print()
