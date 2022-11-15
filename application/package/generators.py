@@ -1,4 +1,4 @@
-import os, random
+import os, random, pprint, json
 
 
 def get_random_person():
@@ -6,7 +6,7 @@ def get_random_person():
     id = get_random_id()
     name, last_name = get_random_name()
     age = get_random_age()
-    return {'id': id, 'name': name, 'last_name': last_name, 'age': age}
+    return json.dumps({'id': id, 'first_name': name, 'last_name': last_name, 'age': age})
 
 
 def get_files(path):
@@ -40,3 +40,7 @@ def get_random_age():
 
 def get_random_id():
     return str(random.randint(25000000, 50000000))
+
+
+if __name__ == '__main__':
+    print(get_random_person())
