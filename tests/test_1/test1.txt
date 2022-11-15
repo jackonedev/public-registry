@@ -56,3 +56,7 @@ Address.objects.all()
     p1 = Person(id=33.444.555, first_name='Juan', last_name='Gris', age=30)
                    ^^^^^^^^^^
 SyntaxError: invalid syntax. Perhaps you forgot a comma?
+
+# TEST MANUAL 2
+
+OK
