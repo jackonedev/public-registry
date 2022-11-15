@@ -9,8 +9,7 @@ from .serializers import PersonSerializer, AddressSerializer
 
 
 @api_view(['GET'])
-def person_list(request):
-    persons = get_object_or_404(Person.objects.all())
-    # persons = Person.objects.all()
+def getPerson(request):
+    persons = Person.objects.all()
     serializer = PersonSerializer(persons, many=True)
     return Response(serializer.data)
