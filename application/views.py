@@ -29,7 +29,30 @@ def getPerson(request):
     last_name = request.query_params.get('last_name', None)
     age = request.query_params.get('age', None)
 
-    persons = Person.objects.filter(first_name=first_name, last_name=last_name, age=age)
+    if first_name and last_name and age:
+        persons = Person.objects.filter(first_name=first_name, last_name=last_name, age=age)
+
+    elif first_name and last_name:
+        persons = Person.objects.filter(first_name=first_name, last_name=last_name)
+    
+    elif first_name and age:
+        persons = Person.objects.filter(first_name=first_name, age=age)
+
+    elif last_name and age:
+        persons = Person.objects.filter(last_name=last_name, age=age)
+    
+    elif first_name:
+        persons = Person.objects.filter(first_name=first_name)
+
+    elif last_name:
+        persons = Person.objects.filter(last_name=last_name)
+
+    elif age:
+        persons = Person.objects.filter(age=age)
+    
+    else:
+        return Response(status=404)
+
     serializer = PersonSerializer(persons, many=True)
     return Response(serializer.data)
 
@@ -43,6 +66,24 @@ def getPersonById(request):
         persons = Person.objects.filter(id=id)
         serializer = PersonSerializer(persons, many=True)
         return Response(serializer.data)
-    
-    else:
-        return HttpResponse("Not implemented yet")
+
+    elif id.startswith('*') and id.endswith('*'):
+        id = id.replace('*', '')
+        persons = Person.objects.filter(id__icontains=id)
+        serializer = PersonSerializer(persons, many=True)
+        return Response(serializer.data)
+
+    elif id.startswith('*'):
+        id = id.replace('*', '')
+        persons = Person.objects.filter(id__iendswith=id)
+        serializer = PersonSerializer(persons, many=True)
+        return Response(serializer.data)
+
+    elif id.endswith('*'):
+        id = id.replace('*', '')
+        persons = Person.objects.filter(id__istartswith=id)
+        serializer = PersonSerializer(persons, many=True)
+        return Response(serializer.data)
+
+    else:#
+        return Response(status=404)
