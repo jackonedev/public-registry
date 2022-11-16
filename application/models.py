@@ -9,7 +9,7 @@ class Person(models.Model):
     picture = models.ImageField(upload_to='person/picture', blank=True)
 
     def __str__(self) -> str:
-        s = "{} {}, dni: {}"
+        s = "{} {}, id: {}"
         return s.format(self.first_name, self.last_name, self.id)
 
 
@@ -20,5 +20,5 @@ class Address(models.Model):
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        s = "{}, {} {}, {}"
-        return s.format(self.person, self.street, self.number, self.city)
+        s = "{}, {}, {}"
+        return s.format(self.street, self.number, self.city)
