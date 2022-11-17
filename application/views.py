@@ -5,12 +5,20 @@ from application import serializers
 
 from django.shortcuts import render
 
+from .forms import IdForm, PersonForm
+
 from .models import Person, Address
 from .serializers import PersonSerializer, AddressSerializer
 
 
 def home(request):
-    return render(request, 'home.html')
+    form_p = PersonForm()
+    form_id = IdForm()
+    context = {
+        'form_p': form_p,
+        'form_id': form_id,
+    }
+    return render(request, 'home.html', context)
 
 
 
@@ -80,5 +88,7 @@ def getPersonById(request):
     else:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
+    if len(persons) == 0:
+        return Response(status=status.HTTP_404_NOT_FOUND)
     serializer = PersonSerializer(persons, many=True)
     return Response(serializer.data)

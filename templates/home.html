@@ -8,5 +8,22 @@
 </head>
 <body>
     <h1>Hola Mundo!</h1>
+    <br />
+    <h3>To view all registry</h3>
+    <a href="http://127.0.0.1:8000/api/all/">
+        <button type="submit">View</button>
+    </a>
+    <br />
+    <h3>To search a registry</h3>
+    <form method="GET" action="http://127.0.0.1:8000/api/get/">
+        {{ form_p.as_p }}
+        <input type="submit" value="Search" />
+    </form>
+    <br />
+    <h3>To search a registry by id</h3>
+    <form method="GET" action="http://127.0.0.1:8000/api/id/">
+        {{ form_id.as_p }}
+        <input type="submit" value="Search" />
+    </form>
 </body>
 </html>
