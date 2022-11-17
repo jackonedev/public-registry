@@ -51,7 +51,7 @@ def post(request):
             instance.city = clean_data.get('city').title()
             instance.save()
 
-    return render(request, 'post.html', context)
+    return render(request, 'post.html', context, status=201)
     
     
 
