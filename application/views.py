@@ -40,6 +40,8 @@ def post(request):
             instance.first_name = clean_data.get('first_name').title()
             instance.last_name = clean_data.get('last_name').title()
             instance.id = clean_data.get('id').replace('.', '').replace('-', '')
+            instance.picture = request.FILES['picture']
+
             instance.save()
 
         if form_a.is_valid():
