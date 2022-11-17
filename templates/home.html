@@ -16,15 +16,14 @@
     <br />
     <h3>To search a registry</h3>
     <form method="GET" action="http://127.0.0.1:8000/api/get/">
-        {{ form.as_p }}
+        {{ form_p.as_p }}
         <input type="submit" value="Search" />
     </form>
     <br />
-    <!-- <h3>To search a registry by id</h3>
+    <h3>To search a registry by id</h3>
     <form method="GET" action="http://127.0.0.1:8000/api/id/">
-        {{ form.as_p }}
+        {{ form_id.as_p }}
         <input type="submit" value="Search" />
-    </form> -->
-
+    </form>
 </body>
 </html>
