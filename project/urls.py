@@ -24,8 +24,10 @@ from application import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
-    path('post/', views.post, name='post'),
-    path('api/', include('application.urls')),
+    path('app/', include('application.urls'), name='app'),
+
+    # REST FRAMEWORK URLS
+    path('api/v1/', include('application.api.urls', namespace='app_api')),
 ]
 
 if settings.DEBUG:
