@@ -32,8 +32,8 @@ def get_random_line(file_path):
         return random.choice(lines).rstrip()
 
 def get_random_name():
-    name = get_random_line('contenido_generado/nombres.txt')
-    last_name = get_random_line('contenido_generado/apellidos.txt')
+    name = get_random_line('application/package/contenido_generado/nombres.txt')
+    last_name = get_random_line('application/package/contenido_generado/apellidos.txt')
     return name, last_name
 
 def get_random_age():
