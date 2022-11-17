@@ -3,8 +3,15 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from application import serializers
 
+from django.shortcuts import render
+
 from .models import Person, Address
 from .serializers import PersonSerializer, AddressSerializer
+
+
+def home(request):
+    return render(request, 'home.html')
+
 
 
 @api_view(['GET'])
