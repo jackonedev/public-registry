@@ -36,10 +36,18 @@ def post(request):
     if request.method == 'POST':
         if form_p.is_valid():
             instance = form_p.save(commit=False)
-            print (len(instance))
-            print (instance)
+            clean_data = form_p.cleaned_data
+            instance.first_name = clean_data.get('first_name').title()
+            instance.last_name = clean_data.get('last_name').title()
+            instance.id = clean_data.get('id').replace('.', '').replace('-', '')
+            instance.save()
 
-            # print (instance.timestamp)
+        if form_a.is_valid():
+            instance = form_a.save(commit=False)
+            clean_data = form_a.cleaned_data
+            instance.street = clean_data.get('street').title()
+            instance.city = clean_data.get('city').title()
+            instance.save()
 
     return render(request, 'post.html', context)
     

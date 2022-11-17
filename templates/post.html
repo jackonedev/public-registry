@@ -19,7 +19,7 @@
     </form>
     <br />
     <h3>POST Person Address</h3>
-    <form method="POST" action="http://google.com/">
+    <form method="POST">
         {% csrf_token %}
         {{ form_a.as_p }}
         <input type="submit" value="Submit" />
