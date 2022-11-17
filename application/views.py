@@ -59,6 +59,9 @@ def getPerson(request):
     else:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
+    if len(persons) == 0:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
     serializer = PersonSerializer(persons, many=True)
     return Response(serializer.data)
 
@@ -67,9 +70,6 @@ def getPerson(request):
 def getPersonById(request):
     id = request.query_params.get('id', None)
     
-    if not id:
-        return Response(status=status.HTTP_400_BAD_REQUEST)
-
     if not id.startswith('*') and not id.endswith('*'):
         persons = Person.objects.filter(id=id)
 
@@ -90,5 +90,6 @@ def getPersonById(request):
 
     if len(persons) == 0:
         return Response(status=status.HTTP_404_NOT_FOUND)
+        
     serializer = PersonSerializer(persons, many=True)
     return Response(serializer.data)
