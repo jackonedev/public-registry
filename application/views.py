@@ -5,12 +5,18 @@ from application import serializers
 
 from django.shortcuts import render
 
+from .forms import PersonForm
+
 from .models import Person, Address
 from .serializers import PersonSerializer, AddressSerializer
 
 
 def home(request):
-    return render(request, 'home.html')
+    form = PersonForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'home.html', context)
 
 
 
