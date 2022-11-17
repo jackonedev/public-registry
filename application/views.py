@@ -5,7 +5,7 @@ from application import serializers
 
 from django.shortcuts import render
 
-from .forms import IdForm, PersonForm
+from .forms import IdForm, PersonForm, PersonModelForm, AddressModelForm
 
 from .models import Person, Address
 from .serializers import PersonSerializer, AddressSerializer
@@ -20,7 +20,30 @@ def home(request):
     }
     return render(request, 'home.html', context)
 
+def post(request):
+    
+    context = {}
+    
+    form_p = PersonModelForm(request.POST or None)
+    form_a = AddressModelForm(request.POST or None)
 
+    context['form_p'] = form_p
+    context['form_a'] = form_a
+
+    if request.user.is_authenticated:
+        context['user'] = request.user
+    
+    if request.method == 'POST':
+        if form_p.is_valid():
+            instance = form_p.save(commit=False)
+            print (len(instance))
+            print (instance)
+
+            # print (instance.timestamp)
+
+    return render(request, 'post.html', context)
+    
+    
 
 @api_view(['GET'])
 def getAllPerson(request):
@@ -90,6 +113,6 @@ def getPersonById(request):
 
     if len(persons) == 0:
         return Response(status=status.HTTP_404_NOT_FOUND)
-        
+
     serializer = PersonSerializer(persons, many=True)
     return Response(serializer.data)
