@@ -13,6 +13,9 @@ from .models import Person
 def home(request):
     return render(request, 'home.html')
 
+def readme(request):
+    return render(request, 'readme.html')
+
 def download(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="download.csv"'
