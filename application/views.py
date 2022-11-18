@@ -7,8 +7,6 @@ def home(request):
     form_p = PersonForm()
     form_id = IdForm()
     
-    #TODO: VALIDATE FORMS
-    
     context = {
         'form_p': form_p,
         'form_id': form_id,
