@@ -1,12 +1,30 @@
+import csv
+
 from django.shortcuts import render
+from django.http import HttpResponse
+
 
 # Path: application\forms.py
 from .forms import IdForm, PersonForm, PersonModelForm, AddressModelForm
+
+from .models import Person
 
 
 def home(request):
     return render(request, 'home.html')
 
+def download(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="download.csv"'
+
+    writer = csv.writer(response)
+
+    writer.writerow(['id', 'first_name', 'last_name', 'age'])
+
+    for row in Person.objects.all().values_list('id', 'first_name', 'last_name', 'age'):
+        writer.writerow(row)
+
+    return response
 
 def get(request):
     form_p = PersonForm()

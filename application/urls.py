@@ -8,4 +8,5 @@ app_name = 'application'
 urlpatterns = [
     path('get/', views.get, name='get'),
     path('post/', views.post, name='post'),
+    path('person/download/', views.download, name='download'),
 ]
