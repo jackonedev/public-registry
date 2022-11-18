@@ -27,25 +27,9 @@
 
 6) PUT REST endpoint:
 
-<<<<<<< HEAD
-`localhost:8000/api/all/`
-
-
-2) Para filtrar determinados registros de personas, por nombre, o apellido o edad
-
-`localhost:8000/api/get?first_name=&last_name=&age=`
-
-
-3) Para filtrar registros de personas por id
-
-`localhost:8000/api/id?id=`
-
-Este endpoint tiene la particularidad que si uno agrega "*" al comienzo, al final o ambas, usara esa expresion para buscar todas las alternativas que coincidan luego de dicho caracter.
-=======
         - PUT: http://localhost:8000/api/v1/person/<id>/edit/
 
 
 7) DELETE REST endpoint:
->>>>>>> develop
 
         - DELETE: http://localhost:8000/api/v1/person/<id>/delete/
