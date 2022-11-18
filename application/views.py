@@ -1,9 +1,14 @@
 from django.shortcuts import render
 
+# Path: application\forms.py
 from .forms import IdForm, PersonForm, PersonModelForm, AddressModelForm
 
 
 def home(request):
+    return render(request, 'home.html')
+
+
+def get(request):
     form_p = PersonForm()
     form_id = IdForm()
     
@@ -11,7 +16,7 @@ def home(request):
         'form_p': form_p,
         'form_id': form_id,
     }
-    return render(request, 'home.html', context)
+    return render(request, 'get.html', context)
 
 
 def post(request):
