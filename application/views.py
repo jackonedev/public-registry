@@ -6,6 +6,9 @@ from .forms import IdForm, PersonForm, PersonModelForm, AddressModelForm
 def home(request):
     form_p = PersonForm()
     form_id = IdForm()
+    
+    #TODO: VALIDATE FORMS
+    
     context = {
         'form_p': form_p,
         'form_id': form_id,
@@ -34,7 +37,10 @@ def post(request):
             instance.first_name = clean_data.get('first_name').title()
             instance.last_name = clean_data.get('last_name').title()
             instance.id = clean_data.get('id').replace('.', '').replace('-', '')
-            instance.picture = request.FILES['picture']
+            try:
+                instance.picture = request.FILES['picture']
+            except:
+                pass
 
         elif form_a.is_valid():
             instance = form_a.save(commit=False)
@@ -44,3 +50,5 @@ def post(request):
     
         instance.save()
     return render(request, 'post.html', context, status=201)
+
+
