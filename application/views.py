@@ -10,9 +10,6 @@ from .forms import IdForm, PersonForm, PersonModelForm, AddressModelForm
 from .models import Person
 
 
-def home(request):
-    return render(request, 'home.html')
-
 def readme(request):
     return render(request, 'readme.html')
 
