@@ -5,30 +5,6 @@ from rest_framework.decorators import api_view
 from application.models import Person
 from application.api.serializers import PersonSerializer, AddressSerializer
 
-# @api_view(['GET', ]) 
-# def api_details_person_view(request, id):
-#     """
-#     Retrieve, update or delete a code snippet.
-#     """
-#     try:
-#         person = Person.objects.get(id=id)
-#     except Person.DoesNotExist:
-#         return Response(status=status.HTTP_404_NOT_FOUND)
-
-#     if request.method == 'GET':
-#         serializer = PersonSerializer(person)
-#         return Response(serializer.data)
-
-#     elif request.method == 'PUT':
-#         serializer = PersonSerializer(person, data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-#     elif request.method == 'DELETE':
-#         person.delete()
-#         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET', ])
 def getAllPerson(request):
@@ -102,6 +78,7 @@ def getPersonById(request):
     serializer = PersonSerializer(persons, many=True)
     return Response(serializer.data)
 
+
 @api_view(['POST', ])
 def createPerson(request):
     data = request.data
@@ -115,8 +92,66 @@ def createPerson(request):
         person.picture=request.FILES['picture']
     except:
         pass
+    
     serializer = PersonSerializer(person, many=False)
     try:
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     except:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['PUT', ])
+def updatePerson(request, id):
+    try:
+        person = Person.objects.get(id=id)
+    except Person.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'PUT':
+        serializer = PersonSerializer(instance=person, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['DELETE', ])
+def deletePerson(request, id):
+    try:
+        person = Person.objects.get(id=id)
+    except Person.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'DELETE':
+        operation = person.delete()
+        data = {}
+        if operation:
+            data['success'] = 'delete successful'
+        else:
+            data['failure'] = 'delete failed'
+        return Response(data=data)
+
+# @api_view(['GET', ]) 
+# def api_details_person_view(request, id):
+#     """
+#     Retrieve, update or delete a code snippet.
+#     """
+#     try:
+#         person = Person.objects.get(id=id)
+#     except Person.DoesNotExist:
+#         return Response(status=status.HTTP_404_NOT_FOUND)
+
+#     if request.method == 'GET':
+#         serializer = PersonSerializer(person)
+#         return Response(serializer.data)
+
+#     elif request.method == 'PUT':
+#         serializer = PersonSerializer(person, data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#     elif request.method == 'DELETE':
+#         person.delete()
+#         return Response(status=status.HTTP_204_NO_CONTENT)

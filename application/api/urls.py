@@ -5,8 +5,10 @@ from . import views
 app_name = 'application'
 
 urlpatterns = [
-    path('person/', views.getAllPerson, name='all'),
-    path('get/person/', views.getPerson, name='filter'),
-    path('get/person/id/', views.getPersonById, name='id'),
-    path('post/person/create/', views.createPerson, name='create'),
+    path('person/1/', views.getAllPerson, name='all'),
+    path('person/2/', views.getPerson, name='filter'),
+    path('person/id/', views.getPersonById, name='id'),
+    path('person/create/', views.createPerson, name='create'),
+    path('person/<str:id>/edit/', views.updatePerson, name='edit'),
+    path('person/<str:id>/delete/', views.deletePerson, name='delete'),
 ]
