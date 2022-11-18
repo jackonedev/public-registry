@@ -101,3 +101,22 @@ def getPersonById(request):
 
     serializer = PersonSerializer(persons, many=True)
     return Response(serializer.data)
+
+@api_view(['POST', ])
+def createPerson(request):
+    data = request.data
+    person = Person.objects.create(
+        id=data['id'],
+        first_name=data['first_name'],
+        last_name=data['last_name'],
+        age=data['age']
+    )
+    try:
+        person.picture=request.FILES['picture']
+    except:
+        pass
+    serializer = PersonSerializer(person, many=False)
+    try:
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    except:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
