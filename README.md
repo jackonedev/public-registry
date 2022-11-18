@@ -1,20 +1,22 @@
 # Documentacion de las rutas endpoint de las API Rest
 
+1) home:
+    
+        - GET: http://localhost:8000/
 
+2) GET Method forms:
 
-1) Para mostrar todos los registros de personas de la base de datos:
+        - GET: http://localhost:8000/api/get/
 
-`<port>/api/all/`
+3) GET endpoints:
 
+        - GET: http://localhost:8000/api/v1/person/
+        - GET: http://localhost:8000/api/v1/get/person/?first_name=&last_name=&age=
+        - GET: http://localhost:8000/api/v1/get/person/id/?id=
 
-2) Para filtrar determinados registros de personas, por nombre, o apellido o edad
+<i>El parámetro query "id" admite el caracter "*" al comienzo, al final o ambos extremos, para obtener todos los resultados que coincidan luego de su posición.</i>
 
-`<port>/api/get?first_name=&last_name=&age=`
+4) POST Method forms:
 
-
-3) Para filtrar registros de personas por id
-
-`<port>/api/id?id=`
-
-Este endpoint tiene la particularidad que si uno agrega "*" al comienzo, al final o ambas, usara esa expresion para buscar todas las alternativas que coincidan luego de dicho caracter.
+        - POST: http://localhost:8000/api/post/
 
