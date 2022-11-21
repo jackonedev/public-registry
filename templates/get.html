@@ -1,36 +1,34 @@
-{% load crispy_forms_tags %}
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Public-Registry | GET</title>
-</head>
-<body>
-    <h1>Public-Registry</h1>
-    <a href="http://127.0.0.1:8000/">Home</a>
-    <hr />
-    <br />
-    <h3>To view all registry</h3>
-    <a href="http://127.0.0.1:8000/api/v1/person/1/">
-        <button type="submit">View</button>
-    </a>
-    <a href="http://127.0.0.1:8000/app/person/download/">
-        <button type="submit">Download</button>
-    </a>
-    <br />
-    <h3>To search a registry</h3>
-    <form method="GET" action="http://127.0.0.1:8000/api/v1/person/2/">
-        {% crispy form_p %}
-        <input type="submit" value="Search" />
-    </form>
-    <br />
-    <h3>To search a registry by id</h3>
-    <form method="GET" action="http://127.0.0.1:8000/api/v1/person/id/">
-        {% crispy form_id %}
-        <input type="submit" value="Search" />
-    </form>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Public-Registry | GET</title>
+    </head>
+    <body>
+        <h1>Public-Registry</h1>
+        <a href="http://127.0.0.1:8000/">Home</a>
+        <hr />
+        <br />
+        <h3>To view all registry</h3>
+        <a href="http://127.0.0.1:8000/api/v1/person/1/">
+            <button type="submit">View</button>
+        </a>
+        <a href="http://127.0.0.1:8000/app/person/download/">
+            <button type="submit">Download</button>
+        </a>
+        <br />
+        <h3>To search a registry</h3>
+        <form method="GET" action="http://127.0.0.1:8000/api/v1/person/2/">
+            {{ form_p.as_p }}
+            <input type="submit" value="Search" />
+        </form>
+        <br />
+        <h3>To search a registry by id</h3>
+        <form method="GET" action="http://127.0.0.1:8000/api/v1/person/id/">
+            {{ form_id }}
+            <input type="submit" value="Search" />
+        </form>
+    </body>
 </html>
