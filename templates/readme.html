@@ -1,16 +1,15 @@
+{% extends 'base.html' %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Public-Registry | README</title>
+    {% block title %}{{ block.super }} | README{% endblock %}
 </head>
 
 <body>
-    <h1>Public-Registry</h1>
-    <a href="http://127.0.0.1:8000/">Home</a>
-    <hr />
+    {% block content %}
     <h1>Documentacion de las rutas endpoint de las API Rest</h1>
     <br>
     <b>
@@ -67,7 +66,7 @@
             <br>
             <br>
             <br>
-            <a href="http://127.0.0.1:8000/">Return</a>
+        {% endblock %}
         </body>
         
         </html>
