@@ -24,6 +24,7 @@ def download(request):
 
     return response
 
+
 def get(request):
     form_p = PersonForm()
     form_id = IdForm()
@@ -32,7 +33,7 @@ def get(request):
         'form_p': form_p,
         'form_id': form_id,
     }
-    return render(request, 'get.html', context)
+    return render(request, 'app/get.html', context)
 
 
 def post(request):
@@ -68,6 +69,6 @@ def post(request):
             instance.city = clean_data.get('city').title()
     
         instance.save()
-    return render(request, 'post.html', context, status=201)
+    return render(request, 'app/post.html', context, status=201)
 
 
