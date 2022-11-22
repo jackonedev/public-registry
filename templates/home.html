@@ -2,18 +2,19 @@
 {% block title %}{{ block.super }} | HOME{% endblock %}
 
 {% block content %}
-    <div class="container">
-        <h1>Public-Registry</h1>
-        <a href="url {% url 'home' %}">Home</a>
-        <hr />
-        <br />
-        <h3>To view, and search any registry</h3>
-        <a href="http://127.0.0.1:8000/app/get/">GET METHOD</a>
-        <br />
-        <h3>To post a new registry</h3>
-        <a href="http://127.0.0.1:8000/app/post/">POST METHOD</a>
-        <br />
-        <h3>To read documentation of the REST API endpoint</h3>
-        <a href="{% url 'readme' %}">README</a>
-    </div>
+
+<h1>Public-Registry Homepage</h1>
+<hr />
+<br />
+<div class="container">
+    <h3>To view, and search any registry</h3>
+    <a href="http://127.0.0.1:8000/app/get/">GET METHOD</a>
+    <br />
+    <h3>To post a new registry</h3>
+    <a href="http://127.0.0.1:8000/app/post/">POST METHOD</a>
+    <br />
+    <h3>To read documentation of the REST API endpoint</h3>
+    <a href="{% url 'readme' %}">README</a>
+</div>
+
 {% endblock %}

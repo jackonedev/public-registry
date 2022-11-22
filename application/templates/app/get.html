@@ -2,28 +2,31 @@
 {% block title %}{{ block.super }}| GET{% endblock %}
 {% block content %}
 
-    <div class="container">
-        <h3>All registry</h3>
-        <a href="http://127.0.0.1:8000/api/v1/person/1/">
-            <button type="submit">View</button>
-        </a>
-        <a href="http://127.0.0.1:8000/app/person/download/">
-            <button type="submit">Download</button>
-        </a>
-        <br />
-        <br />
-        <h3>To search a registry</h3>
-        <form method="GET" action="http://127.0.0.1:8000/api/v1/person/2/">
-            {{ form_p.as_p }}
-            <input type="submit" value="Search" />
-        </form>
-        <br />
-        <br />
-        <h3>To search a registry by id</h3>
-        <form method="GET" action="http://127.0.0.1:8000/api/v1/person/id/">
-            {{ form_id }}
-            <input type="submit" value="Search" />
-        </form>
-    </div>
+<h1>Public-Registry GET Method</h1>
+<hr />
+<br />
+<div class="container">
+    <h3>All registry</h3>
+    <a href="http://127.0.0.1:8000/api/v1/person/1/">
+        <button type="submit">View</button>
+    </a>
+    <a href="http://127.0.0.1:8000/app/person/download/">
+        <button type="submit">Download</button>
+    </a>
+    <br />
+    <br />
+    <h3>To search a registry</h3>
+    <form method="GET" action="http://127.0.0.1:8000/api/v1/person/2/">
+        {{ form_p.as_p }}
+        <input type="submit" value="Search" />
+    </form>
+    <br />
+    <br />
+    <h3>To search a registry by id</h3>
+    <form method="GET" action="http://127.0.0.1:8000/api/v1/person/id/">
+        {{ form_id }}
+        <input type="submit" value="Search" />
+    </form>
+</div>
     
 {% endblock %}
