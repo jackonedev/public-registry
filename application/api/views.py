@@ -82,16 +82,18 @@ def getPersonById(request):
 @api_view(['POST', ])
 def createPerson(request):
     data = request.data
-    person = Person.objects.create(
-        id=data['id'],
-        first_name=data['first_name'],
-        last_name=data['last_name'],
-        age=data['age']
-    )
-    try:
-        person.picture=request.FILES['picture']
-    except:
-        pass
+    if request.method == 'POST':
+        person = Person.objects.create(
+            id=data['id'],
+            first_name=data['first_name'],
+            last_name=data['last_name'],
+            age=data['age']
+        )
+        try:
+            person.picture = request.FILES['picture']
+            person.save()
+        except:
+            pass
     
     serializer = PersonSerializer(person, many=False)
     try:
