@@ -10,8 +10,6 @@ from .forms import IdForm, PersonForm, PersonModelForm, AddressModelForm
 from .models import Person
 
 
-def readme(request):
-    return render(request, 'readme.html')
 
 def download(request):
     response = HttpResponse(content_type='text/csv')
