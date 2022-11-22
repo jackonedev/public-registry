@@ -9,5 +9,6 @@ urlpatterns = [
     path('', views.app_home, name='home'),
     path('get/', views.get, name='get'),
     path('post/', views.post, name='post'),
+    path('put/', views.put, name='put'),
     path('person/download/', views.download, name='download'),
 ]

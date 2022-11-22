@@ -74,3 +74,10 @@ def post(request):
     return render(request, 'app/post.html', context, status=201)
 
 
+def put(request):
+    context = {}
+    # id
+    form_p = PersonModelForm(request.POST or None)
+
+    context['form_p'] = form_p
+    return render(request, 'app/put.html', context)

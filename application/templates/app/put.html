@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}{{ block.super }}| PUT{% endblock %}
+{% block content %}
+
+<h1>Public-Registry PUT Method</h1>
+<p>Welcome {{ user }}</p>
+<hr />
+<br />
+<div class="container" style="width: 600px;">
+    <h3>PUT Person Profile</h3>
+    <form method="POST" action="{% url 'api-rest:edit' form_p.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form_p.as_p }}
+        <input type="hidden" name="_method" value="put">
+        <input class="btn btn-outline-secondary" type="submit" value='Update'/>
+    </form>
+    <br />
+    <br />
+</div>
+
+{% endblock %}
