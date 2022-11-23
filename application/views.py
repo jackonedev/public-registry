@@ -81,8 +81,39 @@ def post(request):
 
 def put(request):
     context = {}
-    # id
-    form_p = PersonModelForm(request.POST or None)
+    
+    if request.method == 'POST':
+        form_id = IdForm(request.POST or None)
+        if form_id.is_valid():
+            clean_data = form_id.cleaned_data
+            id = clean_data.get('id').replace('.', '').replace('-', '')
+            try:
+                person = Person.objects.get(id=id)
+                context['id'] = id
+            except Person.DoesNotExist:
+                return render(request, 'app/put.html', context, status=404)
 
-    context['form_p'] = form_p
+            form_p = PersonModelForm(request.POST or None, instance=person)
+            context['form_p'] = form_p
+            if form_p.is_valid():
+                instance = form_p.save(commit=False)
+                clean_data = form_p.cleaned_data
+                instance.first_name = clean_data.get('first_name').title()
+                instance.last_name = clean_data.get('last_name').title()
+                # ACÁ SE PODRÍA REEMPLAZAR POR EL ID OBTENIDO EN EL PRIMER FORMULARIO
+                # instance.id = id
+                instance.id = clean_data.get('id').replace('.', '').replace('-', '')
+                try:
+                    instance.picture = request.FILES['picture']
+                except:
+                    pass
+                instance.save()
+                context['form_p'] = form_p
+                return render(request, 'app/put.html', context, status=200)
+            return render(request, 'app/put.html', context, status=400)
+    
+    else:
+        form_id = IdForm()
+        context['form_id'] = form_id
+
     return render(request, 'app/put.html', context)

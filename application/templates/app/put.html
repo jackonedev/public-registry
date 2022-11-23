@@ -8,11 +8,24 @@
 <br />
 <div class="container" style="width: 600px;">
     <h3>PUT Person Profile</h3>
-    <form method="POST" action="{% url 'api-rest:edit' form_p.cleaned_data.id %}" enctype="multipart/form-data">
+    <form method="POST">
         {% csrf_token %}
-        {{ form_p.as_p }}
-        <input type="hidden" name="_method" value="put">
-        <input class="btn btn-outline-secondary" type="submit" value='Update'/>
+        <!-- {{ form_id.as_p }} -->
+        {% for field in form_id %}
+        <div class="fieldWrapper">
+            {{ field.errors }}
+            {{ field.label_tag }} {{ field }}
+        </div>
+        <!-- <a href="{% url 'api-rest:id' {{id}} %}" type="btn btn-primary">Search Id</a> -->
+        {% endfor %}
+        <input class="btn btn-outline-secondary" type="submit" value='Search'/>
+        <!-- {% if form_id.id %}
+        <form method="POST" action="">
+            {% csrf_token %}
+            {{ form_p.as_p }}
+            <input class="btn btn-outline-secondary" type="submit" value='Update'/>
+        </form>
+        {% endif %} -->
     </form>
     <br />
     <br />
