@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
-from application.models import Person
+from application.models import Person, Address
 from application.api.serializers import PersonSerializer, AddressSerializer
 
 
@@ -88,6 +88,22 @@ def createPerson(request):
     except:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['POST', ])
+def createAddress(request):
+    data = request.data
+    if request.method == 'POST':
+        person = Person.objects.get(id=data['person'])
+        address = Address.objects.create(
+            person=person,
+            street=data['street'],
+            city=data['city'],
+            number = data['number']
+        )
+    serializer = AddressSerializer(address, many=False)
+    try:
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    except:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['PUT', ])
 def updatePerson(request, id):

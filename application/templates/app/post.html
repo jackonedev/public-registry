@@ -8,14 +8,14 @@
 <br />
 <div class="container" style="width: 600px;">
     <h3>POST Person Profile</h3>
-    <form method="POST" action="{% url 'api-rest:create' %}" enctype="multipart/form-data">
+    <form method="POST" action="{% url 'api-rest:create-person' %}" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form_p.as_p }}
         <input class="btn btn-outline-secondary" type="submit" value="Submit" />
     </form>
     <br />
     <h3>POST Person Address</h3>
-    <form method="POST">
+    <form method="POST" action="{% url 'api-rest:create-address' %}">
         {% csrf_token %}
         {{ form_a.as_p }}
         <input class="btn btn-outline-secondary" type="submit" value="Submit" />
