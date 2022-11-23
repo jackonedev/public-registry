@@ -37,14 +37,22 @@ class AddressModelForm(ModelForm):
         model = Address
         fields = '__all__'
         labels = {
-            'person': 'DNI',
+            'id': 'DNI',
             'street': 'Street',
             'number': 'Number',
             'city': 'City'
         }
         widgets = {
-            'person': forms.TextInput(attrs={'class': 'form-control'}),
+            'id': forms.TextInput(attrs={'class': 'form-control'}),
             'street': forms.TextInput(attrs={'class': 'form-control'}),
             'number': forms.NumberInput(attrs={'class': 'form-control'}),
             'city': forms.TextInput(attrs={'class': 'form-control'})
         }
+
+    # def clean_id(self):
+    #     id = self.cleaned_data.get('id')
+    #     if id:
+    #         id = id.replace('.', '').replace('-', '')
+    #         if not id.isnumeric():
+    #             raise forms.ValidationError('DNI must be numeric')
+    #     return id
