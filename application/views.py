@@ -41,17 +41,13 @@ def get(request):
 def post(request):
     
     context = {}
-    
-    form_p = PersonModelForm(request.POST or None)
-    form_a = AddressModelForm(request.POST or None)
-
-    context['form_p'] = form_p
-    context['form_a'] = form_a
 
     if request.user.is_authenticated:
         context['user'] = request.user
     
     if request.method == 'POST':
+        form_p = PersonModelForm(request.POST or None)
+        form_a = AddressModelForm(request.POST or None)
         # FORM VALIDATION
         if form_p.is_valid():
             instance = form_p.save(commit=False)
@@ -69,8 +65,17 @@ def post(request):
             clean_data = form_a.cleaned_data
             instance.street = clean_data.get('street').title()
             instance.city = clean_data.get('city').title()
-    
+        
+        context['form_p'] = form_p
+        context['form_a'] = form_a
         instance.save()
+    
+    else:
+        form_p = PersonModelForm()
+        form_a = AddressModelForm()
+        context['form_p'] = form_p
+        context['form_a'] = form_a
+
     return render(request, 'app/post.html', context, status=201)
 
 
