@@ -11,14 +11,14 @@
     <form method="POST" action="{% url 'api-rest:create' %}" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form_p.as_p }}
-        <button class="btn btn-outline-secondary" type="submit">Submit </button>
+        <input class="btn btn-outline-secondary" type="submit" value="Submit" />
     </form>
     <br />
     <h3>POST Person Address</h3>
-    <form method="POST" action="{% url 'api-rest:create' %}">
+    <form method="POST">
         {% csrf_token %}
         {{ form_a.as_p }}
-        <button class="btn btn-outline-secondary" type="submit">Submit </button>
+        <input class="btn btn-outline-secondary" type="submit" value="Submit" />
     </form>
     <br>
     <br>
