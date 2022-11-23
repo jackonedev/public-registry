@@ -1,8 +1,14 @@
 import csv
 
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
 
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+
+
+from .api.serializers import PersonSerializer
 
 # Path: application\forms.py
 from .forms import IdForm, PersonForm, PersonModelForm, AddressModelForm
@@ -10,8 +16,6 @@ from .forms import IdForm, PersonForm, PersonModelForm, AddressModelForm
 from .models import Person
 
 
-def app_home(request):
-    return render(request, 'app/app_home.html')
 
 def download(request):
     response = HttpResponse(content_type='text/csv')
@@ -93,27 +97,81 @@ def put(request):
             except Person.DoesNotExist:
                 return render(request, 'app/put.html', context, status=404)
 
-            form_p = PersonModelForm(request.POST or None, instance=person)
-            context['form_p'] = form_p
-            if form_p.is_valid():
-                instance = form_p.save(commit=False)
-                clean_data = form_p.cleaned_data
-                instance.first_name = clean_data.get('first_name').title()
-                instance.last_name = clean_data.get('last_name').title()
-                # ACÁ SE PODRÍA REEMPLAZAR POR EL ID OBTENIDO EN EL PRIMER FORMULARIO
-                # instance.id = id
-                instance.id = clean_data.get('id').replace('.', '').replace('-', '')
-                try:
-                    instance.picture = request.FILES['picture']
-                except:
-                    pass
-                instance.save()
-                context['form_p'] = form_p
-                return render(request, 'app/put.html', context, status=200)
-            return render(request, 'app/put.html', context, status=400)
-    
     else:
         form_id = IdForm()
         context['form_id'] = form_id
 
     return render(request, 'app/put.html', context)
+
+
+@api_view(['GET', 'POST'])
+def update(request):
+    
+    context = {}
+
+    id = request.query_params.get('id', None)
+    person = get_object_or_404(Person, id=id)
+
+    if request.method == 'POST':
+        form_p = PersonModelForm(request.POST or None, instance=person)
+        if form_p.is_valid():
+            instance = form_p.save(commit=False)
+            clean_data = form_p.cleaned_data
+            instance.first_name = clean_data.get('first_name').title()
+            instance.last_name = clean_data.get('last_name').title()
+            instance.id = clean_data.get('id').replace('.', '').replace('-', '')
+            try:
+                instance.picture = request.FILES['picture']
+            except:
+                instance.picture = person.picture
+            instance.save()
+            # form_p.save()
+            #message alert
+            context['message'] = 'Person updated successfully'
+            return render(request, 'app/update.html', context, status=201)
+        
+    else:
+        form_p = PersonModelForm(instance=person)
+        context['form_p'] = form_p
+    return render(request, 'app/update.html', context)
+
+
+def app_home(request):
+    return render(request, 'app/app_home.html')
+# @api_view(['GET', 'POST'])
+# def update(request, id):
+
+#     context = {}
+
+#     try:
+#         person = Person.objects.get(id=id)
+#     except Person.DoesNotExist:
+#         return Response(status=status.HTTP_404_NOT_FOUND)
+
+#     if request.method == 'POST':
+#         form_p = PersonModelForm(request.POST or None, instance=person)
+#         if form_p.is_valid():
+#             instance = form_p.save(commit=False)
+#             clean_data = form_p.cleaned_data
+#             instance.first_name = clean_data.get('first_name').title()
+#             instance.last_name = clean_data.get('last_name').title()
+#             instance.id = clean_data.get('id').replace('.', '').replace('-', '')
+#             try:
+#                 instance.picture = request.FILES['picture']
+#             except:
+#                 instance.picture = None
+#                 # instance.picture = person.picture
+#             instance.save()
+#             form_p.save()
+#             # form_p = PersonModelForm(instance=instance).save()
+
+#             serializer = PersonSerializer(instance=person, data=form_p.cleaned_data)
+#             if serializer.is_valid():
+#                 serializer.save()
+#                 return Response(serializer.data)
+#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#     else:
+#         form_p = PersonModelForm(instance=person)
+#         context['form_p'] = form_p
+#     return render(request, 'app/update.html', context)
