@@ -89,7 +89,7 @@ def createPerson(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['PUT', ])
+@api_view(['PUT',])
 def updatePerson(request, id):
     try:
         person = Person.objects.get(id=id)
