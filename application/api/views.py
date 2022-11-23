@@ -15,8 +15,8 @@ def getAllPerson(request):
 
 @api_view(['GET', ])
 def getPerson(request):
-    first_name = request.query_params.get('first_name', None)
-    last_name = request.query_params.get('last_name', None)
+    first_name = request.query_params.get('first_name', None).title()
+    last_name = request.query_params.get('last_name', None).title()
     age = request.query_params.get('age', None)
 
     if first_name and last_name and age:
