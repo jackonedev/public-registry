@@ -85,22 +85,29 @@
   </head>
   <body>
 <main>
+  
   <div class="container py-4">
     <div class="h-100 p-5 text-bg-success rounded-3">
-      <div class="container-fluid py-5">
-        <h1 class="display-5 text-black-50 fw-bold">Registro Público</h1>
-        <p class="col-md-8 fs-4">Dado el contexto en el que nos encontramos, podemos observar ciertas particularidades. Hemos encarado la situación desde un enfoque práctico, y luego de las pruebas, logramos obtener métricas comparativas que son muy alentadoras para la solución que proponemos. <br /> Hechale un vistazo! </p>
-        <br />
-        <a href="{% url 'application:home' %}"><button class="btn btn-dark btn-lg" type="button">To the APP!</button></a>
-        <a href="{% url 'readme' %}"><button class="btn btn-dark btn-lg" type="button">Docs</button></a>
+      
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="container-fluid py-5">
+            <h1 class="display-5 text-black-50 fw-bold">Registro Público</h1>
+            <p class="col-md-12 fs-4">Dado el contexto en el que nos encontramos, podemos observar ciertas particularidades.<br />Hemos encarado la situación desde un enfoque práctico, y luego de las pruebas, logramos obtener <b>métricas comparativas muy alentadoras</b> para la solución que proponemos. <br /> Hechale un vistazo! </p>
+            <br />
+            <a href="{% url 'application:home' %}"><button class="btn btn-dark btn-lg" type="button">To the APP!</button></a>
+            <a href="{% url 'readme' %}"><button class="btn btn-dark btn-lg" type="button">Docs</button></a>
+          </div>
+        </div>
+        <div class="col-sm-6" style="background-color:black; height: 315px; position:relative; top: 100px;">
+          <!-- <iframe width="560" height="315" src="https://youtu.be/B8MxBzhHAhA" frameborder="0" allowfullscreen></iframe> -->
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/B8MxBzhHAhA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      
       </div>
     </div>
-
   </div>
 </main>
-  <br />
-  <br />
-  <br />
-  <br />
+<br>
   </body>
 </html>

@@ -6,36 +6,46 @@
 <h1>Public-Registry APP Homepage</h1>
 <hr />
 <br />
-<div class="container">
-    <h3>Search, and filter any Profile</h3>
-    <a href="{% url 'application:get' %}">GET METHOD</a>
-    <br />
-    <br />
-    <h3>Create new Profile</h3>
-    <a href="{% url 'application:post' %}">POST METHOD</a>
-    <br />
-    <br />
-    <h3>Update Profile</h3>
-    <a href="{% url 'application:put' %}">PUT METHOD</a>
-    <br />
-    <br />
-    <h3>Delete Profile</h3>
-    <a href="{% url 'application:search' %}">DELETE METHOD</a>
-</div>
+
+<style>
+    #id {
+        border-color: green ;
+    }
+</style>
+<center>
+    <div class="container">
+        <div class="card border-success" style="width: 25rem; margin:7px;">
+            <div class="card-body">
+              <h3 class="card-title">Search, and filter any Profile</h3>
+              <p class="card-text">API RESTFUL</p>
+              <a href="{% url 'application:get' %}" class="btn btn-outline-dark">ACCESS</a>
+            </div>
+        </div>
+        <div class="card border-success" style="width: 25rem; margin:7px;">
+            <div class="card-body">
+              <h3 class="card-title">Create new Profile</h3>
+              <p class="card-text">API RESTFUL</p>
+              <a href="{% url 'application:post' %}" class="btn btn-outline-dark">ACCESS</a>
+            </div>
+        </div>
+        <div class="card border-success" style="width: 25rem; margin:7px;">
+            <div class="card-body">
+              <h3 class="card-title">Update Profile</h3>
+              <p class="card-text">WEBAPI + APIREST</p>
+              <a href="{% url 'application:put' %}" class="btn btn-outline-dark">ACCESS</a>
+            </div>
+        </div>
+        <div class="card border-success" style="width: 25rem; margin:7px;">
+            <div class="card-body">
+              <h3 class="card-title">Delete Profile</h3>
+              <p class="card-text">WEBAPI + RESTAPI</p>
+              <a href="{% url 'application:search' %}" class="btn btn-outline-dark">ACCESS</a>
+            </div>
+        </div>
+    </div>
+</center>
 
 
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
+
 <br />
 {% endblock %}
