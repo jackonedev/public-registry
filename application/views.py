@@ -134,21 +134,8 @@ def update(request):
 
 def search(request):
     context = {}
-    if request.method == 'POST':
-        form_id = IdForm(request.POST or None)
-        if form_id.is_valid():
-            clean_data = form_id.cleaned_data
-            id = clean_data.get('id').replace('.', '').replace('-', '')
-            try:
-                person = Person.objects.get(id=id)
-                context['id'] = id
-            except Person.DoesNotExist:
-                return render(request, 'app/search.html', context, status=404)
-
-    else:
-        form_id = IdForm()
-        context['form_id'] = form_id
-
+    form_id = IdForm()
+    context['form_id'] = form_id
     return render(request, 'app/search.html', context)
 
 
@@ -160,14 +147,12 @@ def delete(request):
     person = get_object_or_404(Person, id=id)
 
     if request.method == 'POST':
-        form_p = PersonModelForm(instance=person)
-        if form_p.is_valid():
-            try:
-                person.delete()
-                context['message'] = 'Person deleted successfully'
-                return render(request, 'app/delete.html', context, status=204)
-            except Person.DoesNotExist:
-                return render(request, 'app/delete.html', context, status=404)
+        try:
+            person.delete()
+            context['message'] = 'Person deleted successfully'
+            return render(request, 'app/delete.html', context, status=204)
+        except Person.DoesNotExist:
+            return render(request, 'app/delete.html', context, status=404)
 
     else:
         form_p = PersonModelForm(instance=person)
