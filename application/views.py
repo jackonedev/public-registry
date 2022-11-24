@@ -17,6 +17,10 @@ from .models import Person
 
 
 
+def app_home(request):
+    return render(request, 'app/app_home.html')
+
+
 def download(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="download.csv"'
@@ -85,22 +89,8 @@ def post(request):
 
 def put(request):
     context = {}
-    
-    if request.method == 'POST':
-        form_id = IdForm(request.POST or None)
-        if form_id.is_valid():
-            clean_data = form_id.cleaned_data
-            id = clean_data.get('id').replace('.', '').replace('-', '')
-            try:
-                person = Person.objects.get(id=id)
-                context['id'] = id
-            except Person.DoesNotExist:
-                return render(request, 'app/put.html', context, status=404)
-
-    else:
-        form_id = IdForm()
-        context['form_id'] = form_id
-
+    form_id = IdForm()
+    context['form_id'] = form_id
     return render(request, 'app/put.html', context)
 
 
@@ -112,66 +102,74 @@ def update(request):
     id = request.query_params.get('id', None)
     person = get_object_or_404(Person, id=id)
 
+    
     if request.method == 'POST':
-        form_p = PersonModelForm(request.POST or None, instance=person)
-        if form_p.is_valid():
-            instance = form_p.save(commit=False)
-            clean_data = form_p.cleaned_data
-            instance.first_name = clean_data.get('first_name').title()
-            instance.last_name = clean_data.get('last_name').title()
-            instance.id = clean_data.get('id').replace('.', '').replace('-', '')
-            try:
-                instance.picture = request.FILES['picture']
-            except:
-                instance.picture = person.picture
-            instance.save()
-            # form_p.save()
-            #message alert
-            context['message'] = 'Person updated successfully'
-            return render(request, 'app/update.html', context, status=201)
-        
+        function = request.query_params.get('function', None)
+        context['function'] = function
+
+        if function == 'Search':
+            form_p = PersonModelForm(request.POST or None, instance=person)
+            if form_p.is_valid():
+                instance = form_p.save(commit=False)
+                clean_data = form_p.cleaned_data
+                instance.first_name = clean_data.get('first_name').title()
+                instance.last_name = clean_data.get('last_name').title()
+                instance.id = clean_data.get('id').replace('.', '').replace('-', '')
+                try:
+                    instance.picture = request.FILES['picture']
+                except:
+                    instance.picture = person.picture
+                instance.save()
+                context['message'] = 'Profile updated successfully'
+                return render(request, 'app/update.html', context, status=201)
+        # elif function=='Delete':
+        #     person.delete()
+        #     context['message'] = 'Person deleted successfully'
+        #     return render(request, 'app/update.html', context, status=204)
     else:
         form_p = PersonModelForm(instance=person)
         context['form_p'] = form_p
     return render(request, 'app/update.html', context)
 
 
-def app_home(request):
-    return render(request, 'app/app_home.html')
-# @api_view(['GET', 'POST'])
-# def update(request, id):
+def search(request):
+    context = {}
+    if request.method == 'POST':
+        form_id = IdForm(request.POST or None)
+        if form_id.is_valid():
+            clean_data = form_id.cleaned_data
+            id = clean_data.get('id').replace('.', '').replace('-', '')
+            try:
+                person = Person.objects.get(id=id)
+                context['id'] = id
+            except Person.DoesNotExist:
+                return render(request, 'app/search.html', context, status=404)
 
-#     context = {}
+    else:
+        form_id = IdForm()
+        context['form_id'] = form_id
 
-#     try:
-#         person = Person.objects.get(id=id)
-#     except Person.DoesNotExist:
-#         return Response(status=status.HTTP_404_NOT_FOUND)
+    return render(request, 'app/search.html', context)
 
-#     if request.method == 'POST':
-#         form_p = PersonModelForm(request.POST or None, instance=person)
-#         if form_p.is_valid():
-#             instance = form_p.save(commit=False)
-#             clean_data = form_p.cleaned_data
-#             instance.first_name = clean_data.get('first_name').title()
-#             instance.last_name = clean_data.get('last_name').title()
-#             instance.id = clean_data.get('id').replace('.', '').replace('-', '')
-#             try:
-#                 instance.picture = request.FILES['picture']
-#             except:
-#                 instance.picture = None
-#                 # instance.picture = person.picture
-#             instance.save()
-#             form_p.save()
-#             # form_p = PersonModelForm(instance=instance).save()
 
-#             serializer = PersonSerializer(instance=person, data=form_p.cleaned_data)
-#             if serializer.is_valid():
-#                 serializer.save()
-#                 return Response(serializer.data)
-#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+@api_view(['GET', 'POST'])
+def delete(request):
+    context = {}
+    
+    id = request.query_params.get('id', None)
+    person = get_object_or_404(Person, id=id)
 
-#     else:
-#         form_p = PersonModelForm(instance=person)
-#         context['form_p'] = form_p
-#     return render(request, 'app/update.html', context)
+    if request.method == 'POST':
+        form_p = PersonModelForm(instance=person)
+        if form_p.is_valid():
+            try:
+                person.delete()
+                context['message'] = 'Person deleted successfully'
+                return render(request, 'app/delete.html', context, status=204)
+            except Person.DoesNotExist:
+                return render(request, 'app/delete.html', context, status=404)
+
+    else:
+        form_p = PersonModelForm(instance=person)
+        context['form_p'] = form_p
+    return render(request, 'app/delete.html', context)
