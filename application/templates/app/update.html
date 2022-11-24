@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}{{ block.super }}| PUT{% endblock %}
+{% block content %}
+
+<h1>Public-Registry PUT Method</h1>
+<p>Welcome {{ user }}</p>
+<hr /><br />
+
+<div class="container" style="width: 600px;">
+
+<h3>PUT Person Profile</h3>
+
+
+<form method="POST" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form_p.as_p }}
+    
+    {% if form_p %}
+    <input class="btn btn-outline-secondary" type="submit" value='Update'/>
+    {% endif %}
+</form>
+
+{% if message %}
+    {{ message }}
+    <a href="{% url 'application:home' %}" class="btn btn-success">Return</a>
+{% endif %}
+
+</div>
+
+{% endblock %}

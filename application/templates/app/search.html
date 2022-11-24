@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}{{ block.super }}| DELETE{% endblock %}
+{% block content %}
+
+<h1>Public-Registry DELETE Method</h1>
+<p>Welcome {{ user }}</p>
+<hr /><br />
+
+<div class="container" style="width: 600px;">
+
+<h3>DELETE Person Profile</h3>
+
+<form method="GET" action="{% url 'application:delete-person' %}">
+{{form_id.as_p}}
+<input class="btn btn-outline-secondary" type="submit" value="Search" />
+</form>
+
+</div>
+
+{% endblock %}
