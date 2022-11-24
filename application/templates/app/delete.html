@@ -16,13 +16,13 @@
     {{ form_p.as_p }}
     
     {% if form_p %}
-    <input class="btn btn-outline-secondary" type="submit" value='Update'/>
+    <input class="btn btn-outline-danger" type="submit" value='Delete'/>
     {% endif %}
 </form>
 
 {% if message %}
-    {{ message }}
-    <a href="{% url 'application:home' %}" class="btn btn-success">Return</a>
+{{ message }}
+<a href="{% url 'application:home' %}" class="btn btn-success">Return</a>
 {% endif %}
 
 </div>
