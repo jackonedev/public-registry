@@ -124,7 +124,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
     # '/var/www/static/',
 ]
-STATIC_ROOT = BASE_DIR / "static" / "static_root"
+STATIC_ROOT = BASE_DIR / "static_root"
 
 
 MEDIA_ROOT = BASE_DIR / 'media'#TODO: Actualizar para que se ubique dentro de static con el nombre media_root v2
