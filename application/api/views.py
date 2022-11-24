@@ -72,8 +72,8 @@ def createPerson(request):
     if request.method == 'POST':
         person = Person.objects.create(
             id=data['id'],
-            first_name=data['first_name'],
-            last_name=data['last_name'],
+            first_name=data['first_name'].title(),
+            last_name=data['last_name'].title(),
             age=data['age']
         )
         try:
@@ -95,8 +95,8 @@ def createAddress(request):
         person = Person.objects.get(id=data['person'])
         address = Address.objects.create(
             person=person,
-            street=data['street'],
-            city=data['city'],
+            street=data['street'].title(),
+            city=data['city'].title(),
             number = data['number']
         )
     serializer = AddressSerializer(address, many=False)
