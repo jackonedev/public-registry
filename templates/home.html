@@ -1,23 +1,13 @@
 {% extends 'base.html' %}
 
 
-<!-- <img src="{% static 'my_app/example.jpg' %}" alt="My image"> -->
 
 {% block title %}{{ block.super }} | HOME{% endblock %}
 
 {% block content %}
 
-<h1>Public-Registry Homepage</h1>
+<h1>Bienvenidos a mi web!!</h1>
 <hr />
 <br />
-<div class="container">
-    <h3>Test de application!</h3>
-    <a href="{% url 'application:home' %}">TO THE APP!</a>
-    <br />
-    <br />
-    <h3>To read documentation of the REST API endpoint</h3>
-    <a href="{% url 'readme' %}">README</a>
-</div>
-
 {% include 'jumbotron.html' %}
 {% endblock %}
