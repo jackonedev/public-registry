@@ -18,6 +18,7 @@ from .models import Person
 
 
 def app_home(request):
+    """url: /app/"""
     return render(request, 'app/app_home.html')
 
 
@@ -35,65 +36,81 @@ def download(request):
     return response
 
 
-def get(request):
-    form_p = PersonForm()
-    form_id = IdForm()
+# @api_view(['GET', 'POST', ])
+# def get(request):
+#     """ url: /app/get/ """
+
+#     if request.method == 'GET':
+#         form_p = PersonForm()
+#         form_id = IdForm()
+        
+#         context = {
+#             'form_p': form_p,
+#             'form_id': form_id,
+#         }
+#         return render(request, 'app/get.html', context)
     
-    context = {
-        'form_p': form_p,
-        'form_id': form_id,
-    }
+#     if request.method == 'POST':
+#         # necesitare context?
+#         atr1 = request.query_params.get('first_name', None)
+#         atr2 = request.query_params.get('last_name', None)
+#         atr3 = request.query_params.get('age', None)
+#         atr4 = request.query_params.get('id', None)
+
+#         if (atr1 or atr2 or atr3) and not atr4:
+#             # descargame la busqueda filtrada por formulario 1
+#             pass
+
+#         elif atr4:
+#             # buscame los ids que hagan match y descargamelos
+#             pass
+        
+#         # necesitaré render?
+#         return render()
+
+
+def get(request):
+    """ url: /app/get/ """
+
+    if request.method == 'GET':
+        form_p = PersonForm()
+        form_id = IdForm()
+        
+        context = {
+            'form_p': form_p,
+            'form_id': form_id,
+        }
     return render(request, 'app/get.html', context)
 
 
 def post(request):
-    
+    """url: get: /app/post/ -> post: /api/v1/person/create/
+    ERROR: no debería tener "create"
+    """
+
     context = {}
 
     if request.user.is_authenticated:
         context['user'] = request.user
     
-    if request.method == 'POST':
-        form_p = PersonModelForm(request.POST or None)
-        form_a = AddressModelForm(request.POST or None)
-        # FORM VALIDATION
-        if form_p.is_valid():
-            instance = form_p.save(commit=False)
-            clean_data = form_p.cleaned_data
-            instance.first_name = clean_data.get('first_name').title()
-            instance.last_name = clean_data.get('last_name').title()
-            instance.id = clean_data.get('id').replace('.', '').replace('-', '')
-            try:
-                instance.picture = request.FILES['picture']
-            except:
-                pass
-
-        elif form_a.is_valid():
-            instance = form_a.save(commit=False)
-            clean_data = form_a.cleaned_data
-            instance.street = clean_data.get('street').title()
-            instance.city = clean_data.get('city').title()
-        
-        context['form_p'] = form_p
-        context['form_a'] = form_a
-        instance.save()
-    
-    else:
+    if request.method == 'GET':
         form_p = PersonModelForm()
         form_a = AddressModelForm()
         context['form_p'] = form_p
         context['form_a'] = form_a
 
-    return render(request, 'app/post.html', context, status=201)
+        return render(request, 'app/post.html', context, status=201)
+    return render(request, 'app/post.html', context, status=200)
 
 
-def put(request):
+def id_form(request):
     context = {}
     form_id = IdForm()
     context['form_id'] = form_id
     return render(request, 'app/put.html', context)
 
 
+    
 @api_view(['GET', 'POST'])
 def update(request):
     
@@ -122,21 +139,12 @@ def update(request):
                 instance.save()
                 context['message'] = 'Profile updated successfully'
                 return render(request, 'app/update.html', context, status=201)
-        # elif function=='Delete':
-        #     person.delete()
-        #     context['message'] = 'Person deleted successfully'
-        #     return render(request, 'app/update.html', context, status=204)
-    else:
+    
+    elif request.method == 'GET':
         form_p = PersonModelForm(instance=person)
         context['form_p'] = form_p
     return render(request, 'app/update.html', context)
 
-
-def search(request):
-    context = {}
-    form_id = IdForm()
-    context['form_id'] = form_id
-    return render(request, 'app/search.html', context)
 
 
 @api_view(['GET', 'POST'])
