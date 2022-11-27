@@ -13,5 +13,6 @@ urlpatterns = [
     path('search/', views.id_form, name='search'),
     path('delete/', views.delete, name='delete-person'),
     path('update/', views.update, name='update-person'),
-    path('person/download/', views.download, name='download'),
+    path('person/download/', views.download, name='download_all'),
+    path('person/download/2/', views.get_download, name='get_download'),
 ]
