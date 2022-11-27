@@ -36,37 +36,97 @@ def download(request):
     return response
 
 
-# @api_view(['GET', 'POST', ])
-# def get(request):
-#     """ url: /app/get/ """
+@api_view(['GET', 'POST', ])
+def get_download(request):
+    """ url: /app/get/ """
 
-#     if request.method == 'GET':
-#         form_p = PersonForm()
-#         form_id = IdForm()
+    if request.method == 'GET':
+        form_p = PersonForm()
+        form_id = IdForm()
         
-#         context = {
-#             'form_p': form_p,
-#             'form_id': form_id,
-#         }
-#         return render(request, 'app/get.html', context)
+        context = {
+            'form_p': form_p,
+            'form_id': form_id,
+        }
+        return render(request, 'app/download.html', context)
     
-#     if request.method == 'POST':
-#         # necesitare context?
-#         atr1 = request.query_params.get('first_name', None)
-#         atr2 = request.query_params.get('last_name', None)
-#         atr3 = request.query_params.get('age', None)
-#         atr4 = request.query_params.get('id', None)
+    if request.method == 'POST':
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="download-filter.csv"'
+        writer = csv.writer(response)
+        writer.writerow(['id', 'first_name', 'last_name', 'age', 'picture'])
 
-#         if (atr1 or atr2 or atr3) and not atr4:
-#             # descargame la busqueda filtrada por formulario 1
-#             pass
 
-#         elif atr4:
-#             # buscame los ids que hagan match y descargamelos
-#             pass
-        
-#         # necesitaré render?
-#         return render()
+        first_name = request.POST.get('first_name', None)
+        last_name = request.POST.get('last_name', None)
+        age = request.POST.get('age', None)
+        id = request.POST.get('id', None)
+
+        # print('1) ', first_name, last_name, age, id)
+        # print ('\nCHAUUUUUU\n')
+
+        try:
+            first_name = first_name.title()
+        except:
+            pass
+        try:
+            last_name = last_name.title()
+        except:
+            pass
+
+
+        if (first_name or last_name or age) and not id:
+            # print('2) ', first_name, last_name, age, id)
+            if first_name and last_name and age:
+                persons = Person.objects.filter(first_name=first_name, last_name=last_name, age=age)
+            elif first_name and last_name:
+                persons = Person.objects.filter(first_name=first_name, last_name=last_name)
+            elif first_name and age:
+                persons = Person.objects.filter(first_name=first_name, age=age)
+            elif last_name and age:
+                persons = Person.objects.filter(last_name=last_name, age=age)
+            elif first_name:
+                persons = Person.objects.filter(first_name=first_name)
+            elif last_name:
+                persons = Person.objects.filter(last_name=last_name)
+            elif age:
+                persons = Person.objects.filter(age=age)
+
+        elif id:
+            # buscame los ids que hagan match y descargamelos
+            if not id.startswith('*') and not id.endswith('*'):
+                persons = Person.objects.filter(id=id)
+            elif id.startswith('*') and id.endswith('*'):
+                id = id.replace('*', '')
+                persons = Person.objects.filter(id__icontains=id)
+            elif id.startswith('*'):
+                id = id.replace('*', '')
+                persons = Person.objects.filter(id__iendswith=id)
+            elif id.endswith('*'):
+                id = id.replace('*', '')
+                persons = Person.objects.filter(id__istartswith=id)
+        print ('\n1)\n\nhola mundoooo!! \n')
+        print (persons)
+        print ('\n2)\n\nhola mundoooo!! \n')
+        print (persons.values)
+        print ('\n3)\n\nDIR DE PERSONS(PERSON,)!!!  \n')
+        print (dir(persons))
+        print ('fin\n\n')
+        for row in persons:
+            print ('\t============ESTOY DENTRO DE UNA ITERACION!!!')
+            print ('\n1)\n\nDIR DE PERSON!! \n')
+            print (dir(row))
+            print ('\n2)\n\nMIRAME MIRAME MIRAME!! \n')
+            # print ([row2 for row2 in row])
+            print(row.id)
+            print(row.first_name)
+            print(row.last_name)
+            print(row.age)
+            print(row.picture)
+            print ('\n3)\n\nFIN \n')
+            # writer.writerow(row.objects.all())
+
+        return response
 
 
 def get(request):
