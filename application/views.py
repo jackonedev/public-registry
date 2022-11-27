@@ -62,8 +62,6 @@ def get_download(request):
         age = request.POST.get('age', None)
         id = request.POST.get('id', None)
 
-        # print('1) ', first_name, last_name, age, id)
-        # print ('\nCHAUUUUUU\n')
 
         try:
             first_name = first_name.title()
@@ -76,7 +74,6 @@ def get_download(request):
 
 
         if (first_name or last_name or age) and not id:
-            # print('2) ', first_name, last_name, age, id)
             if first_name and last_name and age:
                 persons = Person.objects.filter(first_name=first_name, last_name=last_name, age=age)
             elif first_name and last_name:
@@ -93,7 +90,6 @@ def get_download(request):
                 persons = Person.objects.filter(age=age)
 
         elif id:
-            # buscame los ids que hagan match y descargamelos
             if not id.startswith('*') and not id.endswith('*'):
                 persons = Person.objects.filter(id=id)
             elif id.startswith('*') and id.endswith('*'):
@@ -105,26 +101,9 @@ def get_download(request):
             elif id.endswith('*'):
                 id = id.replace('*', '')
                 persons = Person.objects.filter(id__istartswith=id)
-        print ('\n1)\n\nhola mundoooo!! \n')
-        print (persons)
-        print ('\n2)\n\nhola mundoooo!! \n')
-        print (persons.values)
-        print ('\n3)\n\nDIR DE PERSONS(PERSON,)!!!  \n')
-        print (dir(persons))
-        print ('fin\n\n')
+
         for row in persons:
-            print ('\t============ESTOY DENTRO DE UNA ITERACION!!!')
-            print ('\n1)\n\nDIR DE PERSON!! \n')
-            print (dir(row))
-            print ('\n2)\n\nMIRAME MIRAME MIRAME!! \n')
-            # print ([row2 for row2 in row])
-            print(row.id)
-            print(row.first_name)
-            print(row.last_name)
-            print(row.age)
-            print(row.picture)
-            print ('\n3)\n\nFIN \n')
-            # writer.writerow(row.objects.all())
+            writer.writerow([row.id, row.first_name, row.last_name, row.age, row.picture])
 
         return response
 
