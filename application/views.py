@@ -147,6 +147,11 @@ def id_form(request):
     form_id = IdForm()
     context['form_id'] = form_id
     return render(request, 'app/put.html', context)
+def id_form_2(request):
+    context = {}
+    form_id = IdForm()
+    context['form_id'] = form_id
+    return render(request, 'app/search.html', context)
 
 
     
