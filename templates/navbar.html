@@ -15,12 +15,13 @@
                 APP
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{% url 'application:get' %}">GET METHOD</a></li>
-                <li><a class="dropdown-item" href="{% url 'application:post' %}">POST METHOD</a></li>
-                <li><a class="dropdown-item" href="{% url 'application:put' %}">PUT METHOD</a></li>
-                <li><a class="dropdown-item" href="{% url 'application:search' %}">DELETE METHOD</a></li>
+                <li><a class="dropdown-item" href="{% url 'application:post' %}">CREATE PROFILE</a></li>
+                <li><a class="dropdown-item" href="{% url 'application:get' %}">READ PROFILE</a></li>
+                <li><a class="dropdown-item" href="{% url 'application:put' %}">UPDATE PROFILE</a></li>
+                <li><a class="dropdown-item" href="{% url 'application:search' %}">DELETE PROFILE</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="{% url 'readme' %}">README</a></li>
+                <li><a class="dropdown-item" href="{% url 'application:download_filter' %}">DOWNLOAD FILES</a></li>
               </ul>
   
             </li>

@@ -15,9 +15,17 @@ def getAllPerson(request):
 
 @api_view(['GET', ])
 def getPerson(request):
-    first_name = request.query_params.get('first_name', None).title()
-    last_name = request.query_params.get('last_name', None).title()
+    first_name = request.query_params.get('first_name', None)
+    last_name = request.query_params.get('last_name', None)
     age = request.query_params.get('age', None)
+    try:
+        first_name = first_name.title()
+    except:
+        pass
+    try:
+        last_name = last_name.title()
+    except:
+        pass
 
     if first_name and last_name and age:
         persons = Person.objects.filter(first_name=first_name, last_name=last_name, age=age)

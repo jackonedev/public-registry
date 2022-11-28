@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}{{ block.super }}| DELETE{% endblock %}
+{% block title %}{{ block.super }} | SEARCH{% endblock %}
 {% block content %}
 
 <h1>Public-Registry DELETE Method</h1>
@@ -8,7 +8,7 @@
 
 <div class="container" style="width: 600px;">
 
-<h3>DELETE Person Profile</h3>
+<h3>Input profile exact id</h3>
 
 <form method="GET" action="{% url 'application:delete-person' %}">
 {{form_id.as_p}}
