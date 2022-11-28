@@ -10,9 +10,9 @@ urlpatterns = [
     path('get/', views.get, name='get'),
     path('post/', views.post, name='post'),
     path('put/', views.id_form, name='put'),
-    path('search/', views.id_form, name='search'),
+    path('search/', views.id_form, name='search'),#TODO: CONSIDERAR QUE TENGA SU PROPIA FUNCION PARA EL RENDER COMO ERA ORIGINALMENTE
     path('delete/', views.delete, name='delete-person'),
     path('update/', views.update, name='update-person'),
     path('person/download/', views.download, name='download_all'),
-    path('person/download/2/', views.get_download, name='get_download'),
+    path('person/download/2/', views.get_download, name='download_filter'),
 ]
