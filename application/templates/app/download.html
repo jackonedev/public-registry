@@ -2,7 +2,7 @@
 {% block title %}{{ block.super }} | DOWNLOAD{% endblock %}
 {% block content %}
 
-<h1>Public-Registry Download Register</h1>
+<h1>Public-Registry Download Site</h1>
 <hr />
 <br />
 <div class="container" style="width:600px;">
@@ -10,7 +10,7 @@
     <a href="{% url 'application:download_all' %}" class="btn btn-outline-secondary" type="submit" >Download</a>
     <br />
     <br />
-    <h3>Download: form 1</h3>
+    <h3>Download: by form 1</h3>
     <form method="POST" action="{% url 'application:download_filter' %}">
         {% csrf_token %}
         {{ form_p.as_p }}
@@ -18,7 +18,7 @@
     </form>
     <br />
     <br />
-    <h3>Download: form 2</h3>
+    <h3>Download: by form 2</h3>
     <form method="POST" action="{% url 'application:download_filter' %}">
         {% csrf_token %}
         {{ form_id.as_p }}

@@ -2,13 +2,13 @@
 {% block title %}{{ block.super }} | POST{% endblock %}
 {% block content %}
 
-<h1>Public-Registry POST Method</h1>
+<h1>Public-Registry Create Profile</h1>
 <p>Welcome {{ user }}</p>
 <hr />
 <br />
 
 <div class="container" style="width: 600px;">
-<h3>POST Person Profile</h3>
+<h3>Create new profile</h3>
 
 <form method="POST" action="{% url 'api-rest:create-person' %}" enctype="multipart/form-data">
 {% csrf_token %}
@@ -17,7 +17,7 @@
 </form>
 
 <br />
-<h3>POST Person Address</h3>
+<h3>Create new address</h3>
 <form method="POST" action="{% url 'api-rest:create-address' %}">
 {% csrf_token %}
 {{ form_a.as_p }}

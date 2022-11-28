@@ -2,7 +2,7 @@
 {% block title %}{{ block.super }} | GET{% endblock %}
 {% block content %}
 
-<h1>Public-Registry GET Method</h1>
+<h1>Public-Registry Read Profile</h1>
 <hr />
 <br />
 <div class="container" style="width:600px;">
@@ -15,14 +15,14 @@
     </a>
     <br />
     <br />
-    <h3>To search a registry</h3>
+    <h3>Fitlered Research</h3>
     <form method="GET" action="{% url 'api-rest:filter' %}">
         {{ form_p.as_p }}
         <input class="btn btn-outline-secondary" type="submit" value="Search" />
     </form>
     <br />
     <br />
-    <h3>To search a registry by id</h3>
+    <h3>Search by ID</h3>
     <form method="GET" action="{% url 'api-rest:id' %}">
         {{ form_id.as_p }}
         <input class="btn btn-outline-secondary" type="submit" value="Search" />
