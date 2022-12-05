@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}{{ block.super }} | GET{% endblock %}
 {% block content %}
 
@@ -6,6 +7,7 @@
 <hr />
 <br />
 <div class="container" style="width:600px;">
+    
     <h3>All registry</h3>
     <a href="{% url 'api-rest:all' %}">
         <button class="btn btn-outline-success" type="submit">View</button>
@@ -13,8 +15,11 @@
     <a href="{% url 'application:download_all' %}">
         <button class="btn btn-outline-warning" type="submit">Download</button>
     </a>
+    <ul id="list"></ul>
+    <button class="btn btn-warning" id="button" type="submit">BOTON NUEVO</button>
     <br />
     <br />
+
     <h3>Fitlered Research</h3>
     <form method="GET" action="{% url 'api-rest:filter' %}">
         {{ form_p.as_p }}
@@ -30,4 +35,5 @@
 </div>
 <br>
 <br>
+<py-script src="{% static 'script.py' %}"></py-script>
 {% endblock %}
